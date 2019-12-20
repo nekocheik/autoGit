@@ -3,48 +3,43 @@ let fs = require('fs')
 let child_process = require('child_process')
 
 let addFolder = () => {
-  
+  console.log(config)
+  config.folderCommandExec
 }
 
 
 let updatedConfig = () => {
-  
+  let newConfig = JSON.stringify(config.configToJson, undefined, 2)
+  fs.writeFileSync(config.pathOfTheConfig, newConfig)
 }
 
 
 let removeFolder = () => {
-  let newConfig = JSON.stringify(config.configToJson)
-  console.log(newConfig)
-  fs.writeFileSync(config.configFolder, newConfig)
+
 }
 
 
-let configPath = '/config/conf.json'
+let configPath = process.mainModule.path +`/config/conf.json`
 
 let fileConfig = 
 JSON.parse(
             fs.readFileSync
             (
-              Path.dirname(process.argv[1]) + configPath
+              configPath
             )
           )
 
 
 let config = {
   baseName: Path.dirname(process.argv[1]),
-  curentFolder: () => 'config/',
   commandParms: [
     ...process.argv.slice(2)
   ],
+  folderCommandExec: process.env.PWD,
   pathOfTheConfig: configPath,
   configToJson : fileConfig,
 }
 
-config.configToJson.cheik = 'xcheik'
-
-config.folderSave = `${config.baseName}/config/conf.json`
-
-//console.log(config)
 
 let actions = new Map([
   [ 'add', new Map([
@@ -89,7 +84,7 @@ const selectGodCommand =  function ( parm = 'default', action =  actions ) {
   }
 }
 
-selectGodCommand(config.commandParms[0])
 
 
-removeFolder()
+//updatedConfig()
+//console.log(process.mainModule.path)
