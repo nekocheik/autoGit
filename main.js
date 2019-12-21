@@ -1,2 +1,5 @@
-require = require('@std/esm')(module)
-require('./autogit')
+let Path = require('path')
+let fs = require('fs')
+
+
+console.log(autoGit)
